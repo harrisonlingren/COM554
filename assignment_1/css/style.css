@@ -1,3 +1,68 @@
 body {
     font-family: 'Open Sans', sans-serif;
+    color: #212121;
+}
+
+.container {
+    margin-left: 250px;
+    margin-right: 48px;
+}
+
+.menu-section {
+    display: block;
+    margin: 
+}
+
+main {
+    width: 100%;
+    margin-top: 10px;
+}
+
+header {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.title > h2 {
+    text-align: center;
+}
+
+.menu-btn {
+    width: 24px;
+    top: 12px;
+    left: 12px;
+    position: absolute;
+}
+
+.menu-btn-bar {
+    width: 100%;
+    background-color: #424242;
+    height: 3px;
+    margin-top: 4px;
+}
+
+.menu-btn-bar:first {
+    margin-top: 0px;
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 40px;
+    height: 100%;
+    width: 250px;
+    overflow-x: 0;
+}
+
+nav > ul {
+    list-style: none;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+    bottom: 0;
 }
