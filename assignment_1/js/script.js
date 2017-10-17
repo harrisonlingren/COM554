@@ -1,5 +1,5 @@
 // form functions will go here
-var menuExpanded = true;
+var menuExpanded = false;
 
 function changeMenu() {
     if (menuExpanded) {
@@ -14,7 +14,7 @@ function changeMenu() {
         });
 
         $('.container').animate({
-            'margin-left': '48px'
+            'margin-left': '0px'
         },
         {
             'duration': 200,
