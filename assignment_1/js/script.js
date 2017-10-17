@@ -67,4 +67,22 @@ $(document).ready(() => {
     // menu expand/collapse
     $('.menu-btn').click(changeMenu);
 
+    // switch between tabs
+    $('.tab-header').click((tab) => {
+        tab = $(tab.currentTarget);
+        // switch active tab if not already active
+        if ( !tab.hasClass('tab-active') ) {
+            $('.tab-header').removeClass('tab-active');
+            tab.addClass('tab-active');
+
+            // show correct tab content
+            let tabContentId = parseInt(tab.attr('id').substr(-1));
+            $('.tab-content').hide();
+            $('.tab-content').eq(tabContentId).show();
+        }
+    });
+
+    // set initial state
+    $('#menu-link-options').click();
+    $('#tab-header-0').click();
 });

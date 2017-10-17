@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #212121;
     margin: 0 0;
     height: 100%;
@@ -12,32 +12,42 @@ header {
     height: 150px;
     padding: 15px;
     color: #fff;
-    background-image: url('../img/reslifebackground.jpg');
+    background-image: url('../img/resco.jpg');
     background-position-x: center;
 }
 
-.title > h2 {
-    text-align: center;
-    margin: 0 auto;
-    padding-top: 25px;
+.title {
+    vertical-align: center;
 }
 
-/* footer styling */
+.title h2, .title h3 {
+    text-align: center;
+    font-weight: 400;
+    color: #fff;
+    margin: 0 auto;
+}
 
+.title h2 {
+    font-weight: 500;
+}
+
+/* in-nav footer styling */
 footer {
-    position: fixed;
-    text-align: left;
-    padding: 20px 10%;
-    margin-bottom: 10px;
-    bottom: 0;
+    text-align: center;
+    padding: 15px 0;
+    display: none;
+}
+
+.container {
+    padding-bottom: 10px;
 }
 
 /* Menu styling */
 
 .menu-btn {
-    width: 32px;
-    top: 16px;
-    left: 16px;
+    width: 28px;
+    top: 12px;
+    left: 12px;
     position: absolute;
 }
 
@@ -59,13 +69,25 @@ nav {
     padding-top: 48px;
     height: 100%;
     width: 0px;
-    overflow-x: 0;
-    background-color: #424242;
+    background-color: #2196f3;
+    box-shadow: 2px 0 10px -2px #212121;  
     color: #fff;
 }
 
-nav > ul {
+nav ul {
     list-style: none;
+}
+
+nav a {
+    color: #fff;
+}
+
+nav a:hover {
+    text-decoration: none;
+}
+
+nav a:visited {
+    color: #fff;
 }
 
 .menu-section {
@@ -73,17 +95,107 @@ nav > ul {
 }
 
 .menu-link {
-    color: #fff;
     display: none;
-}
-
-.menu-link:hover {
-    text-decoration: none;
+    margin-bottom: 8px;
 }
 
 /* main content */
 
 main {
-    margin-top: 10px;
     padding: 20px 10%;
-}   
+}
+
+main h3 {
+    margin-top: 0;
+}
+
+.tabs {
+    color: #212121;
+    display: block;
+}
+
+.tab-header {
+    width: 25%;
+    float: left;
+    text-align: center;
+    background-color: #fff;
+    color: #757575;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.9em;
+    padding: 10px 0;
+}
+
+.tab-header:hover {
+    cursor: pointer;
+}
+
+.tab-header.tab-active {
+    color: #00BCD4;
+    border-bottom: 4px #00bcd4;
+    border-bottom-style: inset;
+}
+
+.tab-content {
+    display: inline-block;
+}
+
+.tab-content h4 {
+    text-align: center;
+}
+
+.tab-content article {
+    padding: 10px 15px;
+}
+
+.tab-image .tab-image-title {
+    font-size: 1.8em;
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    color: #fff;
+}
+
+.tab-image {
+    position: relative;
+    width: 100%;
+    height: 42vh;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;    
+}
+
+#tab-content-0 .tab-image {
+    background-image: url('../img/ross.jpg');
+}
+
+#tab-content-1 .tab-image {
+    background-image: url('../img/resco.png');
+}
+
+#tab-content-2 .tab-image {
+    background-image: url('../img/ut.png');
+}
+
+#tab-content-3 .tab-image {
+    background-image: url('../img/av.jpg');
+}
+
+
+
+
+
+
+
+
+
+/* color palette 
+.dark-primary-color    { background: #1976D2; }
+.default-primary-color { background: #2196F3; }
+.light-primary-color   { background: #BBDEFB; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #00BCD4; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+.divider-color         { border-color: #BDBDBD; }
+*/
