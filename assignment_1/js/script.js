@@ -1,25 +1,17 @@
 // form functions will go here
-var menuExpanded = false;
+var menuExpanded = true;
 
 function changeMenu() {
     if (menuExpanded) {
         // if menu is expanded, collapse
-        $('.menu-link').hide();
         $('nav').animate({
             'width': '0px'
         },
         {
-            'duration': 200,
-            'queue': false
+            'duration': 200
         });
-
-        $('.container').animate({
-            'margin-left': '0px'
-        },
-        {
-            'duration': 200,
-            'queue': false
-        });
+        $('.menu-link').hide();
+        $('footer').hide();
         menuExpanded = false;
 
     } else {
@@ -28,16 +20,9 @@ function changeMenu() {
             'width': '250px'
         },
         {
-            'duration': 200,
-            'queue': false
+            'duration': 200
         });
-        $('.container').animate({
-            'margin-left': '250px'
-        },
-        {
-            'duration': 200,
-            'queue': false
-        });
+        $('footer').show();
         $('.menu-link').show();
         menuExpanded = true;
     }
@@ -71,9 +56,9 @@ $(document).ready(() => {
     $('.tab-header').click((tab) => {
         tab = $(tab.currentTarget);
         // switch active tab if not already active
-        if ( !tab.hasClass('tab-active') ) {
-            $('.tab-header').removeClass('tab-active');
-            tab.addClass('tab-active');
+        if ( !tab.hasClass('active') ) {
+            $('.tab-header').removeClass('active');
+            tab.addClass('active');
 
             // show correct tab content
             let tabContentId = parseInt(tab.attr('id').substr(-1));
@@ -82,7 +67,17 @@ $(document).ready(() => {
         }
     });
 
+    // switch between nav menu options
+    $('.menu-link').click((link) => {
+        link = $(link.currentTarget);
+        if ( !link.hasClass('active') ) {
+            $('.menu-link').removeClass('active');
+            link.addClass('active');
+        }
+        $('.menu-btn').click();
+    });
+
     // set initial state
-    $('#menu-link-options').click();
+    $('#menu-link-home').click();
     $('#tab-header-0').click();
 });
