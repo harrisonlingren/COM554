@@ -61,37 +61,15 @@
                             </p>
 
                             <div class="accordion">
-                                <div class="accordion-title">Hall Features</div>
+                                <div class="accordion-header">Hall Features</div>
                                 <div class="accordion-content">
-                                    <ul>
-                                        <li>Ross Hall is a smoke-free living environment</li>
-                                        <li>Microwaves available in lobby</li>
-                                        <li>One kitchen located in the basement</li>
-                                        <li>Laundry room located in the basement</li>
-                                        <li>Quiet study lounge</li>
-                                        <li>Computer lab</li>
-                                        <li>Front desk operations</li>
-                                        <li>Game room (with 3 pool tables, foosball table, and ping pong table)</li>
-                                        <li>TV room (with big screen T.V.)</li>
-                                        <li>Bike Storage</li>
-                                    </ul>
+                                    <ul></ul>
                                 </div>
                             </div>
                             <div class="accordion">
-                                <div class="accordion-title">Standard Room Features</div>
+                                <div class="accordion-header">Standard Room Features</div>
                                 <div class="accordion-content">
-                                    <ul>
-                                        <li>Built-in Smoke Detectors</li>
-                                        <li>Wi-Fi throughout the building</li>
-                                        <li>One computer outlet per room (two in triple and quad rooms)</li>
-                                        <li>Cable television outlet (cord not provided)</li>
-                                        <li>One overhead light</li>
-                                        <li>Four two plug, three-prong electrical outlets</li>
-                                        <li>One bulletin board</li>
-                                        <li>One desk with a removable hutch, bed, chair, and five drawer dresser per person</li>
-                                        <li>Two standard closets with shelves</li>
-                                        <li>Bunkable beds (pins provided) (Lofts are not permitted)</li>
-                                    </ul>
+                                    <ul></ul>
                                 </div>
                             </div>
                         </article>
@@ -111,44 +89,18 @@
                                 students, participate in intramural events with students, and host dinners and other varied educational events 
                                 for students.                                
                             </p>
-                                Hall Features
-                                <ul>
-                                    <li>All rooms are air-conditioned</li>
-                                    <li>ResCo is a smoke-free living environment</li>
-                                    <li>Microwaves and sinks on each floor</li>
-                                    <li>Kitchenette w/stove on all 2nd floor wings</li>
-                                    <li>Dining Hall (M-F, 11am-1:30pm)</li>
-                                    <li>Laundry room (access, A and D wing)</li>
-                                    <li>Quiet study rooms</li>
-                                    <li>Computer lab</li>
-                                    <li>Front desk operations</li>
-                                    <li>Game room (with a pool table, air hockey table, foosball table and ping pong table)</li>
-                                    <li>T.V. room (with big screen TV)</li>
-                                    <li>Conference rooms</li>
-                                    <li>Piano room</li>
-                                </ul>
-                            </p>
-                            <p>
-                                Standard Room Features
-                                <ul>
-                                    <li>Bathroom with shower (one bathroom for each suite)</li>
-                                    <li>Two bathroom sinks</li>
-                                    <li>Bathroom storage cabinet&nbsp;</li>
-                                    <li>Full length mirror</li>
-                                    <li>Built-in Smoke Detectors</li>
-                                    <li>Wi-Fi throughout the building</li>
-                                    <li>One computer outlet per room</li>
-                                    <li>Cable television outlet (cord not provided)</li>
-                                    <li>One overhead light</li>
-                                    <li>Fire sprinklers</li>
-                                    <li>Seven two plug, three-prong electrical outlets</li>
-                                    <li>One bulletin board</li>
-                                    <li>One desk with a removable hutch, bed, chair, and five drawer dresser per person</li>
-                                    <li>Two standard closets with shelves and hanging bars inside</li>
-                                    <li>Bunkable beds (pins provided)&nbsp;(lofts are not permitted)</li>
-                                </ul>
-                            </p>
-
+                            <div class="accordion">
+                                <div class="accordion-header">Hall Features</div>
+                                <div class="accordion-content">
+                                    <ul></ul>
+                                </div>
+                            </div>
+                            <div class="accordion">
+                                <div class="accordion-header">Standard Room Features</div>
+                                <div class="accordion-content">
+                                    <ul></ul>
+                                </div>
+                            </div>
                         </article>
                     </div>
 
@@ -234,7 +186,33 @@
             </div>
             <div class="menu-section" id="section-contact">
                 <h3>Contact us</h3>
-                <p>Contact form will go here.</p>
+                <div class="form">
+                    <label for="first">First name: </label><input  id="first" name="first" /><br>
+                    <label for="last">Last name: </label><input  id="last" name="last" /><br>
+                    <label for="year">Year:</label>
+                    <select  id="year" name="year">
+                        <option disabled selected>Choose one...</option>
+                        <option value="1">First</option>
+                        <option value="2">Second</option>
+                        <option value="3">Third</option>
+                        <option value="4">Fourth</option>
+                    </select><br>
+
+                    <label class="residence">Residence hall to contact:</label>
+                    <select  id="residence" class="residence"></select><br><br>
+
+                    <label class="message">Type your message below:</label><br>
+                    <textarea  id="message" class="message" placeholder="Your message..."></textarea>
+                    <br><br>
+
+                    <button class="message" id="send">Send message</button>
+                </div>
+
+                <div class="thanks">
+                    <h4>Thanks!</h4>
+                    <p>We've received your message. You can expect a response within the next 2 business days.</p>
+                </div>
+
             </div>
         </main>
     </div>

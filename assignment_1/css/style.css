@@ -5,7 +5,7 @@ html, body {
     height: 100%;
 }
 
-/* header styling */
+/* header style */
 
 header {
     top: 0;
@@ -25,13 +25,14 @@ header {
     font-weight: 400;
     color: #fff;
     margin: 0 auto;
+    cursor: pointer;
 }
 
 .title h2 {
     font-weight: 500;
 }
 
-/* in-nav footer styling */
+/* in-nav footer style */
 footer {
     position: fixed;
     bottom: 20px;
@@ -45,7 +46,7 @@ footer {
     padding-bottom: 10px;
 }
 
-/* Menu styling */
+/* menu style */
 
 .menu-btn {
     width: 28px;
@@ -65,6 +66,8 @@ footer {
 .menu-btn-bar:first {
     margin-top: 0px;
 }
+
+/* nav style */
 
 nav {
     position: fixed;
@@ -102,7 +105,7 @@ nav ul {
     background-color: #b2ebf2;
 }
 
-/* main content */
+/* main style */
 main {
     padding: 20px 10%;
 }
@@ -110,6 +113,8 @@ main {
 main h3 {
     margin-top: 0;
 }
+
+/* tabs style */
 
 .tabs {
     color: #212121;
@@ -181,6 +186,99 @@ main h3 {
 
 #tab-content-3 .tab-image {
     background-image: url('../img/av.jpg');
+}
+
+/* form style */
+
+input, textarea, select {
+    padding: 5px 2px;
+    margin: 5px 0;
+    width: 30%;
+    border-radius: 4px;
+    border: 1px solid #bdbdbd;
+}
+
+textarea {
+    padding: 5px 4px;
+    width: 60%;
+    height: 200px;
+    font-family: 'Roboto', sans-serif;
+}
+
+label {
+    width: 30%;
+    max-width: 200px;
+    display: inline-block;
+    padding: 5px 0;
+    margin: 5px 0;
+}
+
+button {
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #bdbdbd;
+    padding: 5px;
+}
+
+button:hover {
+    background-color: #fafafa;
+}
+
+.residence, .message {
+    display: none;
+}
+
+/* tooltip style */
+
+.tooltip {
+    display: none;
+    position: relative;
+    width: 30%;
+    max-width: 150px;
+    padding: 5px;
+    margin-left: 12px;
+    font-size: smaller;
+    border-radius: 4px;
+    background-color: #00BCD4;
+    color: #fff;   
+}
+
+.tooltip:after {
+    content: " ";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    height: 0;
+    width: 0;
+    border: solid transparent;
+    border-right-color: #00BCD4;
+    border-width: 6px;
+    margin-top: -6px;
+}
+
+/* accordion style */
+.accordion {
+    border-top: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
+    border-left: 1px solid #dbdbdb;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 0px 0px 0 rgba(0,0,0,0.12), 0 2px 1px -3px rgba(0,0,0,0.2);
+}
+
+.accordion-header {
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 0 1em;
+    line-height: 3em;
+}
+
+.accordion-content {
+    display: none;
+    padding: 1em;
+}
+
+.accordion-content ul {
+    margin: 0;
 }
 
 

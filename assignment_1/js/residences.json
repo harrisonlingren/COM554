@@ -1,0 +1,80 @@
+{
+    "residences": [
+        {
+            "name": "Ross Hall",
+            "years": [1],
+            "features": {
+                "hall": [
+                    "Ross Hall is a smoke-free living environment",
+                    "Microwaves available in lobby",
+                    "One kitchen located in the basement",
+                    "Laundry room located in the basement",
+                    "Quiet study lounge",
+                    "Computer lab",
+                    "Front desk operations",
+                    "Game room (with 3 pool tables, foosball table, and ping pong table)",
+                    "TV room (with big screen T.V.)",
+                    "Bike Storage"
+                ],
+                "room": [
+                    "Built-in Smoke Detectors",
+                    "Wi-Fi throughout the building",
+                    "One computer outlet per room (two in triple and quad rooms)",
+                    "Cable television outlet (cord not provided)",
+                    "One overhead light",
+                    "Four two plug, three-prong electrical outlets",
+                    "One bulletin board",
+                    "One desk with a removable hutch, bed, chair, and five drawer dresser per person",
+                    "Two standard closets with shelves",
+                    "Bunkable beds (pins provided) (Lofts are not permitted)"
+                ]
+            }
+        },
+        {
+            "name": "Residential College",
+            "years": [1,2],
+            "features": {
+                "hall": [
+                    "All rooms are air-conditioned",
+                    "ResCo is a smoke-free living environment",
+                    "Microwaves and sinks on each floor",
+                    "Kitchenette w/stove on all 2nd floor wings",
+                    "Dining Hall (M-F, 11am-1:30pm)",
+                    "Laundry room (access, A and D wing)",
+                    "Quiet study rooms",
+                    "Computer lab",
+                    "Front desk operations",
+                    "Game room (with a pool table, air hockey table, foosball table and ping pong table)",
+                    "T.V. room (with big screen TV)",
+                    "Conference rooms",
+                    "Piano room"
+                ],
+                "room": [
+                    "Bathroom with shower (one bathroom for each suite)",
+                    "Two bathroom sinks",
+                    "Bathroom storage cabinet",
+                    "Full length mirror",
+                    "Built-in Smoke Detectors",
+                    "Wi-Fi throughout the building",
+                    "One computer outlet per room",
+                    "Cable television outlet (cord not provided)",
+                    "One overhead light",
+                    "Fire sprinklers",
+                    "Seven two plug, three-prong electrical outlets",
+                    "One bulletin board",
+                    "One desk with a removable hutch, bed, chair, and five drawer dresser per person",
+                    "Two standard closets with shelves and hanging bars inside",
+                    "Bunkable beds (pins provided) (lofts are not permitted)"
+                ]
+            }
+        },
+        {
+            "name": "University Terrace",
+            "years": [2,3,4]
+        },
+        {
+            "name": "Apartment Village",
+            "years": [2,3,4]
+        }
+    ]
+}
