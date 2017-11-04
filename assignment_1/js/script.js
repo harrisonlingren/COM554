@@ -1,9 +1,5 @@
-// form functions will go here
-// get available residences for contact form from JSON
+// object to hold residence hall data
 var availableResidences = {};
-$.getJSON('js/residences.json', (data) => {
-    availableResidences = data.residences;
-});
 
 // flag for sidenav state
 var menuExpanded = true;
@@ -126,9 +122,9 @@ function changeSelectedYear() {
 function changeSelectedResidence() { $('.message').show(); }
 
 // auto-populate the hall feature lists from JSON
-function getHallFeatures() {
+function getHallFeatures(data) {
     let selector = '';
-    $.each(availableResidences, (i, hall) => {
+    $.each(data, (i, hall) => {
         // populate only if features are present
         if (hall.features) {
             // select the 'hall' features list
@@ -149,9 +145,9 @@ function getHallFeatures() {
 }
 
 // auto-populate the residence hall table from JSON
-function getHallTable() {
+function getHallTable(data) {
     $('table#halls').append('<tr id="0"><th></th></tr>');
-    $.each(availableResidences, (i, hall) => {
+    $.each(data, (i, hall) => {
         let newCell = '<th>' + hall.name + '</th>';
         $(newCell).appendTo( 'tr#0' );
     });
@@ -161,7 +157,7 @@ function getHallTable() {
         newElem = '<tr id="' + (i+1) + '"><td>' + year + '</td></tr>';
         $(newElem).appendTo( 'table#halls' );
 
-        $.each(availableResidences, (j, hall) => {
+        $.each(data, (j, hall) => {
             if ( hall.years.includes(i+1) ) {
                 newElem = '<td> X </td>';
             } else {
@@ -171,8 +167,6 @@ function getHallTable() {
         });
     });
 }
-
-
 
 $(document).ready(() => {
     // show home on initial load
@@ -210,6 +204,14 @@ $(document).ready(() => {
         } $('.menu-btn').click();
     });
 
+    // get available residences for contact form from JSON
+    $.getJSON('js/residences.json', (data) => {
+        availableResidences = data.residences;
+        // populate hall feature lists and homepage table
+        getHallFeatures(availableResidences);
+        getHallTable(availableResidences);
+    });
+
     // switch between tabs
     $('.tab-header').click((tab) => {
         tab = $(tab.currentTarget);
@@ -224,10 +226,6 @@ $(document).ready(() => {
             $('.tab-content').eq(tabContentId).show();
         }
     });
-
-    // populate hall feature lists and homepage table
-    getHallFeatures();
-    getHallTable();
 
     // accordion logic
     $('.accordion-header').click(accordionHandler);
