@@ -3,7 +3,6 @@
 var availableResidences = {};
 $.getJSON('js/residences.json', (data) => {
     availableResidences = data.residences;
-    console.log(availableResidences);
 });
 
 // flag for sidenav state
@@ -58,14 +57,65 @@ function accordionHandler(e) {
 
 // tooltip handler functions
 function tooltipOpen(target, message) {
-    if ( $(target+'tip').length == 0 ) {
-        $(target).after('<div class="tooltip" id="' + target + 'tip">' + message + '</div>'); 
+    if ( $(target+'tip').length <= 0 ) {
+        $(target).after('<div class="tooltip" id="' + target.substr(1) + 'tip">' + message + '</div>'); 
     } $(target+'tip').fadeIn(200).css('display', 'inline-block');
 }
 
 function tooltipClose(target) {
     $(target+'tip').fadeOut(200);
 }
+
+// click handler for dropdown
+function dropdownClick(e) {
+    let elem = $(e.target);
+    let parent = elem.parent();
+    let items = elem.siblings().not('.dropdown-selected');
+    
+    if ( parent.hasClass('active') ) {
+        parent.removeClass('active');
+        $.each(items, (i,v) => { $(v).hide() });
+    } else {
+        parent.addClass('active');
+        parent.children().filter('.dropdown-selected').text( 'Choose one...' );
+        $.each(items, (i,v) => { $(v).show() });
+    }
+}
+
+// click handler for dropdown item
+function dropdownItemClick(e) {
+    let parent = $(e.target).parent();
+    let items = $(parent).children().not('.dropdown-selected');
+    let selectedText = $(e.target).text();
+    let selectedVal = $(e.target).attr('value');
+
+    parent.children().filter('.dropdown-selected').text( selectedText );
+    parent.attr('value', selectedVal );
+    parent.removeClass('active');
+    $.each(items, (i,v) => { $(v).hide() });
+}
+
+// change residence select options when selected year changes
+function changeSelectedYear() {
+    let y = $('#year').attr('value');
+    let options = yearSelection(y);
+
+    // clear options and update
+    $('#residence').html('');
+    $.each(options, (i, o) => { $('<div class="dropdown-item" value="' + o + '">' + o +'</div>').appendTo( $('#residence') ); });
+    
+    if ( $('.residence .dropdown-selected').length == 0 ) {
+        $('.residence').children(':first-child').before('<span class="dropdown-selected">Choose one...</span>');
+    }
+    
+    $('.residence .dropdown-selected').click( dropdownClick );
+    $('.residence .dropdown-item').click( dropdownItemClick );
+    $('#residence').children().not('.dropdown-selected').click(changeSelectedResidence);
+    $('.residence').show().css('display', 'inline-block');
+}
+
+// show message textarea when hall is chosen
+function changeSelectedResidence() { $('.message').show(); }
 
 // auto-populate the hall feature lists from JSON
 function getHallFeatures() {
@@ -87,6 +137,31 @@ function getHallFeatures() {
                 $(newLi).appendTo(selector);
             });
         }
+    });
+}
+
+function getHallTable() {
+
+    $('table#halls').append('<tr id="0"><th></th></tr>');
+    $.each(availableResidences, (i, hall) => {
+        let newCell = '<th>' + hall.name + '</th>';
+        $(newCell).appendTo( 'tr#0' );
+    });
+
+    let years = ['First', 'Second', 'Third', 'Fourth']; let newElem = '';
+    $.each(years, (i, year) => {
+        newElem = '<tr id="' + (i+1) + '"><td>' + year + '</td></tr>';
+        $(newElem).appendTo( 'table#halls' );
+
+        $.each(availableResidences, (j, hall) => {
+            if ( hall.years.includes(i+1) ) {
+                newElem = '<td> X </td>';
+            } else {
+                newElem = '<td></td>';
+            } //console.log(newElem);
+            $(newElem).appendTo( 'tr#' + (i+1) )
+        });
+
     });
 }
 
@@ -142,8 +217,9 @@ $(document).ready(() => {
         }
     });
 
-    // populate hall feature lists
+    // populate hall feature lists and homepage table
     getHallFeatures();
+    getHallTable();
 
     // accordion logic
     $('.accordion-header').click(accordionHandler);
@@ -155,29 +231,29 @@ $(document).ready(() => {
     $('#last').mouseenter(() => { tooltipOpen('#last', 'Your surname'); });
     $('#last').mouseleave(() => { tooltipClose('#last'); });
 
-    $('#year').mouseenter(() => { tooltipOpen('#year', 'Your academic year'); });
-    $('#year').mouseleave(() => { tooltipClose('#year'); });
+    // initialize dropdown elements
+    $('.dropdown').children(':first-child').before('<span class="dropdown-selected">Choose one...</span>');
+    $('.dropdown-selected').click( dropdownClick );
+    $('.dropdown-item').click( dropdownItemClick );
 
-    // change residence select options when selected year changes
-    $('#year').change(() => {
-        let y = $('#year').val();
-        let options = yearSelection(y);
+    // close active dropdown if user clicks outside
+    $(document).click((e) => {
+        if ( !$(e.target).hasClass('dropdown') && !$('.dropdown').find(e.target).length) {
+            let dropdown = $('.dropdown.active');
+            dropdown.children().filter('.dropdown-selected').text( 'Choose one...' );
+            let items = dropdown.children().not('.dropdown-selected');
+            $.each(items, (i,v) => { $(v).hide() });
+            dropdown.removeClass('active');
+        }
+    })
 
-        // clear options and update
-        $('#residence').html('<option disabled selected>Choose a hall...</option>');
-        $.each(options, (i, o) => { $('<option value="' + o + '">' + o +'</option>').appendTo( $('#residence') ); });
-        $('.residence').show();
-    });
-
-    // show message textarea when hall is chosen
-    $('#residence').change(() => {
-        $('.message').show();
-    });
+    // click handler for year dropdown
+    $('#year').children().not('.dropdown-selected').click(changeSelectedYear);
 
     // check values before submitting contact form
     $('#send').click(() => {
         // check if fields have values before submitting
-        if ( $('#first').val() == '' || $('#last').val() == '' || $('#year').val() == '' || $('#residence').val() == '' || $('#message').val() == '' ) {
+        if ( $('#first').val() == '' || $('#last').val() == '' || $('#year').attr('value') == '' || $('#residence').attr('value') == '' || $('#message').val() == '' ) {
             tooltipOpen('#send', 'Please fill out all fields before submitting!');
         
         // "submit" form
@@ -188,6 +264,6 @@ $(document).ready(() => {
     });
 
     // set initial state
-    $('#menu-link-options').click();
+    $('#menu-link-home').click();
     $('#tab-header-0').click();
 });

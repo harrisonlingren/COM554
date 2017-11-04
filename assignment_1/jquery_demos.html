@@ -37,7 +37,11 @@
         <main>
             <div class="menu-section" id="section-home">
                 <h3>Home</h3>
-                <p>Check out our on-campus housing options... blah blah... cool. Click "Housing options" in the Menu to view the details. </p>
+                <p>Welcome to our residence halls information site! Below is a summary of our offerings for each year of student. For further information, select the "Housing Options" section of the menu to the left. </p>
+                <br><hr><br>
+
+                <table id="halls"></table>
+                
             </div>
             <div class="menu-section" id="section-options">
                 <h3>Housing Options</h3>
@@ -189,17 +193,18 @@
                 <div class="form">
                     <label for="first">First name: </label><input  id="first" name="first" /><br>
                     <label for="last">Last name: </label><input  id="last" name="last" /><br>
-                    <label for="year">Year:</label>
-                    <select  id="year" name="year">
-                        <option disabled selected>Choose one...</option>
-                        <option value="1">First</option>
-                        <option value="2">Second</option>
-                        <option value="3">Third</option>
-                        <option value="4">Fourth</option>
-                    </select><br>
 
-                    <label class="residence">Residence hall to contact:</label>
-                    <select  id="residence" class="residence"></select><br><br>
+                    <label for="year">Year: </label>
+                    <div class="dropdown" id="year" name="year">
+                        <div class="dropdown-item" value="1">First</div>
+                        <div class="dropdown-item" value="2">Second</div>
+                        <div class="dropdown-item" value="3">Third</div>
+                        <div class="dropdown-item" value="4">Fourth</div>
+                    </div><br><br>
+
+                    <label class="residence">Residence hall:</label>
+                    <!-- <select id="residence" class="residence"></select><br><br> -->
+                    <div class="dropdown residence" id="residence" name="residence"></div><br><br>
 
                     <label class="message">Type your message below:</label><br>
                     <textarea  id="message" class="message" placeholder="Your message..."></textarea>
