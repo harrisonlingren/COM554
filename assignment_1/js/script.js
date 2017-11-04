@@ -7,29 +7,37 @@ $.getJSON('js/residences.json', (data) => {
 
 // flag for sidenav state
 var menuExpanded = true;
-function changeMenu() {
-    if (menuExpanded) {
-        // if menu is expanded, collapse
-        $('nav').animate(
-            { 'width': '0px' },
-            { 'duration': 200 }
-        );
 
-        $('.menu-link').hide();
-        $('footer').hide();
-        menuExpanded = false;
+// sidenav menu controls
+function menuToggle() {
+    if (menuExpanded) { menuCollapse() }
+    else { menuExpand() }
+}
 
-    } else {
-        // if menu is collapsed, expand
-        $('nav').animate(
-            { 'width': '250px' },
-            { 'duration': 200 }
-        );
+function menuExpand() {
+    // if menu is collapsed, expand
+    console.info('expanding');
+    $('nav').animate(
+        { 'width': '250px' },
+        { 'duration': 200 }
+    );
 
-        $('footer').show();
-        $('.menu-link').show();
-        menuExpanded = true;
-    }
+    $('footer').show();
+    $('.menu-link').show();
+    menuExpanded = true;
+}
+
+function menuCollapse() {
+    // if menu is expanded, collapse
+    console.info('collapsing');
+    $('nav').animate(
+        { 'width': '0px' },
+        { 'duration': 200 }
+    );
+
+    $('.menu-link').hide();
+    $('footer').hide();
+    menuExpanded = false;
 }
 
 // change residences by selected year
@@ -140,8 +148,8 @@ function getHallFeatures() {
     });
 }
 
+// auto-populate the residence hall table from JSON
 function getHallTable() {
-
     $('table#halls').append('<tr id="0"><th></th></tr>');
     $.each(availableResidences, (i, hall) => {
         let newCell = '<th>' + hall.name + '</th>';
@@ -161,9 +169,9 @@ function getHallTable() {
             } //console.log(newElem);
             $(newElem).appendTo( 'tr#' + (i+1) )
         });
-
     });
 }
+
 
 
 $(document).ready(() => {
@@ -191,7 +199,7 @@ $(document).ready(() => {
     $('.title > h2, .title > h3').click(() => { $('#menu-link-home').click() });
 
     // menu expand/collapse
-    $('.menu-btn').click(changeMenu);
+    $('.menu-btn').click(menuToggle);
 
     // switch between nav menu options
     $('.menu-link').click((link) => {
@@ -236,8 +244,9 @@ $(document).ready(() => {
     $('.dropdown-selected').click( dropdownClick );
     $('.dropdown-item').click( dropdownItemClick );
 
-    // close active dropdown if user clicks outside
-    $(document).click((e) => {
+    // for handling generic click events
+    $(window).click((e) => {
+        // close active dropdown if user clicks outside
         if ( !$(e.target).hasClass('dropdown') && !$('.dropdown').find(e.target).length) {
             let dropdown = $('.dropdown.active');
             dropdown.children().filter('.dropdown-selected').text( 'Choose one...' );
@@ -245,7 +254,12 @@ $(document).ready(() => {
             $.each(items, (i,v) => { $(v).hide() });
             dropdown.removeClass('active');
         }
-    })
+
+        // close sidenav menu if user clicks outside
+        if ( !$(e.target).is('nav') && !$(e.target).is('.menu-btn, .menu-btn > a, .menu-btn-bar') && menuExpanded == true ) { 
+            menuCollapse();
+        }
+    });
 
     // click handler for year dropdown
     $('#year').children().not('.dropdown-selected').click(changeSelectedYear);
