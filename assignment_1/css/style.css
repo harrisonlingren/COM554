@@ -1,6 +1,9 @@
-html, body {
+* {
     font-family: 'Roboto', sans-serif;
     color: #212121;
+}
+
+html, body {
     margin: 0 0;
     height: 100%;
 }
@@ -58,7 +61,7 @@ footer {
 
 .menu-btn-bar {
     width: 100%;
-    background-color: #bdbdbd;
+    background-color: #dbdbdb;
     height: 4px;
     margin-top: 6px;
 }
@@ -107,7 +110,10 @@ nav ul {
 
 /* main style */
 main {
-    padding: 20px 10%;
+    padding: 20px 0;
+    width: 80%;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 main h3 {
@@ -191,37 +197,41 @@ main h3 {
 /* form style */
 
 input, textarea, select {
-    padding: 5px 2px;
-    margin: 5px 0;
-    width: 30%;
+    padding: 8px 4px;
+    margin: 8px 0;
+    width: 20em;
     border-radius: 4px;
-    border: 1px solid #bdbdbd;
+    border: 1px solid #dbdbdb;
 }
 
 textarea {
-    padding: 5px 4px;
+    padding: 8px 8px;
     width: 60%;
     height: 200px;
-    font-family: 'Roboto', sans-serif;
 }
 
 label {
-    width: 30%;
+    width: 40%;
     max-width: 200px;
     display: inline-block;
-    padding: 5px 0;
+    line-height: 36px;
     margin: 5px 0;
 }
 
 button {
-    background-color: #fff;
-    border-radius: 4px;
-    border: 1px solid #bdbdbd;
-    padding: 5px;
+    cursor: pointer;
+    background-color: #fafafa;
+    border-radius: 2px;
+    border: none;
+    padding: 0 1em;
+    line-height: 3em;
+    font-size: 1em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 0px 0px 0 rgba(0,0,0,0.12), 0 2px 1px -3px rgba(0,0,0,0.2);
 }
 
 button:hover {
-    background-color: #fafafa;
+    background-color: #fff;
 }
 
 /* tooltip style */
@@ -282,7 +292,7 @@ button:hover {
     display: inline-block;
     position: absolute;
     border: 1px solid #f2f2f2;
-    width: 25%;
+    width: 20em;
     min-width: 100px;
     z-index: 1;
 }
