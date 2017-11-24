@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lingren Assignment 1</title>
+    <link rel="stylesheet" href="css/lib/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/materialize.min.js"></script>
+    <script src="js/script.js"></script>
+</head>
+<body>
+
+    <div class="row">
+        <nav>
+            <div class="nav-wrapper">
+                <i class="material-icons left">menu</i>
+
+                <a class="brand-logo center" href="#">Lingren News</a>
+
+                <div class="right input-field">
+                    <label for="search" class="label-icon"><i class="material-icons">search</i></label>
+                    <input id="search" type="search" />
+                    <i class="material-icons">close</i>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row">
+        <div class="col s2" id="nav-panel">
+            <ul>
+                <li class="nav-item"><a href="#popular">Popular</a></li>
+                <li class="nav-item"><a href="#world">World</a></li>
+                <li class="nav-item"><a href="#business">Business</a></li>
+                <li class="nav-item"><a href="#technology">Technology</a></li>
+                <li class="nav-item"><a href="#science">Science</a></li>
+                <li class="nav-item"><a href="#entertainment">Entertainment</a></li>
+            </ul>
+        </div>
+
+        <div class="col s10" id="main-panel">
+
+            <!-- main feed -->
+            <div class="container">
+                <main class="" id="feed-panel">
+
+                    <!-- feed item template -->
+                    <article class="card horizontal">
+                        <div class="card-image-overflow">
+                            <img src="http://i.stack.imgur.com/GA6bB.png" />
+                        </div>
+
+                        <div class="card-stacked">
+                            <div class="card-title">
+                                <h5>Article title</h5>
+                            </div>
+
+                            <div class="card-content">
+                                <p>Article summary goes here. You can click the link below to read more. Thumbnail is shown to the left, and title to the top. This layout might change in the future.</p>
+                            </div>
+
+                            <div class="card-action waves-effect">
+                                <a href="#">Article link</a>
+                            </div>
+                        </div>
+                    </article>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
