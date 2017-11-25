@@ -19,6 +19,14 @@ header, main, footer {
     z-index: 998;
 }
 
+.nav-section-link {
+    width: 100%;
+}
+
+.nav-section.link.active {
+    background-color: rgba(0,0,0,0.05);
+}
+
 nav {
     z-index: 999;
     position: fixed;

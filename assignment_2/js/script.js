@@ -147,9 +147,6 @@ function showArticle(article_guid) {
     $('.article-panel').show();
 }
 
-// most recently viewed page
-let recent_history = [];
-
 // simple routing function for handling URLs
 // params: 'target': URL hash string of resource
 function route(target) {
@@ -173,7 +170,6 @@ function route(target) {
     }
 
     $(window).scrollTop(0);
-    recent_history.push(target);
     return;
 }
 
@@ -214,14 +210,8 @@ function checkSearch() {
     }
 }
 
-// go back in time...
-function back() {
-    let secondToLast = recent_history[ recent_history.length - 2 ];
-    route(secondToLast);
-}
-
 $(document).ready(() => {
-
+    // initialize view
     showSpinner();
     loadFeeds(feed_url);    
     route('');
@@ -233,13 +223,22 @@ $(document).ready(() => {
         route(new_loc);
     });
 
+    // init sidenav panel
     $('.button-collapse').sideNav();
 
+    // search input
     $('#search').keypress((e) => {
         if (e.keyCode == 13) { checkSearch(); }        
     });
 
-    $('.cancel-search').click( () => { back() } );
-    $('#404-back').click(() => { back(); });
+    $('.cancel-search').click( () => { window.history.back() } );
+    $('#404-back').click(() => { window.history.back(); });
+
+    $('.nav-section-link').click((e) => {
+        $('.nav-section-link').removeClass('active');
+        $(e.currentTarget).addClass('active');
+
+        console.log(e);
+    });
 
 });
