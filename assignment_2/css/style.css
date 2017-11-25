@@ -9,3 +9,33 @@
     height: 150px;
     margin-left: -50px;
 }
+
+header, main, footer {
+    padding-left: 300px;
+}
+
+.side-nav {
+    top: 64px;
+    z-index: 998;
+}
+
+nav {
+    z-index: 999;
+    position: fixed;
+}
+
+.feed-panel {
+    margin-top: 64px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+
+    .side-nav {
+        top: 0;
+        z-index: 999;
+    }
+}
+

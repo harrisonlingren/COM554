@@ -23,19 +23,18 @@ function loadFeeds(category_urls) {
             // iterate over items within feed, add to local cache
             $.each(data.items, (idx, feed_item) => {
                 feed[category].push(feed_item);
-            });
+            }); buildFeed(feed[category], '#'+category);
         });
     });
-
-    return feed;
 }
 
 // adds cards to '#feed-panel' from Array 'category-feed'
 // params: 'category_feed': [feed_item]
-function buildFeed(category_feed) {
+//         'target': selector to append to
+function buildFeed(category_feed, target) {
+    
     // iterate over set of articles and build cards
     $.each(category_feed, (idx, item) => {
-
         // image element
         let item_img = $('<div></div>')
         .addClass('card-image-overflow')
@@ -83,6 +82,45 @@ function buildFeed(category_feed) {
             .append(item_content);
         
         // add card element to feed
-        new_item.appendTo('#feed-panel');
+        new_item.appendTo(target);
     });
 }
+
+// simple routing function for handling URLs
+function route(target) {
+    $('main').hide();
+    
+    if ( $(target).length > 0 ) {
+        $(target).show();
+    } else if (target == '') {
+        route('#popular');
+    } else {
+        route('#404');
+    }
+}
+
+function showSpinner() {
+    console.log('loading...');
+}
+
+function hideSpinner() {
+    console.log('loaded!');
+}
+
+$(document).ready( () => {
+
+    showSpinner();
+    loadFeeds(feed_url);
+    hideSpinner();
+    
+    route('#popular');
+
+    // router listener
+    $(window).on('hashchange', () => {
+        new_loc = window.location.hash;
+        route(new_loc);
+    });
+
+    $('.button-collapse').sideNav();
+
+});
