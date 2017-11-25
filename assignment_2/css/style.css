@@ -28,6 +28,50 @@ nav {
     margin-top: 64px;
 }
 
+.search-icon i {
+    line-height: 44px !important;
+}
+
+a {
+    color: #ffab40;
+}
+
+input[type=search]:not(.browser-default):focus:not([readonly]) {
+    box-shadow: none;
+    border-bottom: none;
+    -webkit-box-shadow: none;
+}
+
+.cancel-search {
+    cursor: pointer;
+}
+
+.article-author, .article-date {
+    display: block;
+}
+
+.article-author {
+    font-size: large;
+    font-weight: 600;
+}
+
+.article-media {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.article-media img {
+    width: 100%;
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 85%;
+    }
+}
+
 @media only screen and (max-width : 992px) {
     header, main, footer {
         padding-left: 0;
@@ -36,6 +80,10 @@ nav {
     .side-nav {
         top: 0;
         z-index: 999;
+    }
+
+    nav {
+        z-index: 500;
     }
 }
 

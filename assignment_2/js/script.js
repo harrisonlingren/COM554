@@ -10,6 +10,7 @@ const feed_url = {
 
 // object to hold feeds
 const feed = {};
+const all_feeds_guids = {};
 
 // make AJAX calls to 'category_urls' and cache to memory in object
 // params: 'category_urls' - object containing k,v pair of JSON endpoints
@@ -24,8 +25,19 @@ function loadFeeds(category_urls) {
             // iterate over items within feed, add to local cache
             $.each(data.items, (idx, feed_item) => {
                 feed[category].push(feed_item);
-            }); buildFeed(feed[category], '#'+category);
+            }); 
+            addToAggregateFeed(feed[category]);
+            buildFeed(feed[category], '#'+category);
         });
+    });
+}
+
+function addToAggregateFeed(aggregate_feed) {
+    $.each(aggregate_feed, (idx, article) => {
+        let guid = article.guid.substr( article.guid.indexOf('p=')+2 );
+        if ( !all_feeds_guids[guid] ) {
+            all_feeds_guids[guid] = article;
+        }
     });
 }
 
@@ -62,8 +74,8 @@ function buildFeed(category_feed, target) {
         );
         
         // action link element
-        let item_guid = item.guid.substr(19);
-        let item_content_link = target + '?item=' + item_guid;
+        let item_guid = item.guid.substr( item.guid.indexOf('p=') + 2 );
+        let item_content_link = '#article?id=' + item_guid;
 
         let item_link = $('<div></div>')
             .addClass('card-action')
@@ -93,16 +105,63 @@ function buildFeed(category_feed, target) {
     });
 }
 
+// show loading spinner
+function showSpinner() {
+    $('.feed-panel').hide();
+    $('.article-panel').hide();
+    $('#spinner').show();
+}
+
+// hide loading spinner
+function hideSpinner() {
+    $('#spinner').hide();
+}
+
+// Load content for 'article_guid' and display
+// params: 'article_guid': ID of the article to be displayed
+//         'article_category': category of the article for searching
+function showArticle(article_guid) {
+    showSpinner();
+    
+    // find article object using 'article_guid'
+    let article = all_feeds_guids[article_guid];
+
+    // load article content to DOM
+    $('.article-panel .article-title').text(article.title)
+    $('.article-panel .article-author').text(article.author);
+    $('.article-panel .article-body').html(article.content);
+    $('.article-panel .article-media img').attr('src', article.thumbnail);
+    $('.article-panel .article-permalink').attr('href', 'https://time.com/?p='+article_guid);
+
+    let d = new Date(article.pubDate);
+    let pub_date = d.toLocaleString('en-US', {
+        weekday: 'short',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+    }); $('.article-panel .article-date').text(pub_date);
+
+    hideSpinner();
+    $('.article-panel').show();
+}
+
+// most recently viewed page
+let recent_history = [];
+
 // simple routing function for handling URLs
 // params: 'target': URL hash string of resource
 function route(target) {
     $('main').hide();
-    console.log(target);
 
-    if (target.includes('?item')) {
-        let item_guid = target.substr(14);
-        let item_category = target.substr(1, target.indexOf('?') - 1);
-        showArticle(item_category, item_guid);
+    if (target.includes('search')) {
+        let query = target.substr( target.indexOf('q=') + 2 );
+        search(query);
+
+    } else if (target.includes('article?id=')) {
+        let item_guid = target.substr( target.indexOf('id=') + 3 );
+        showArticle(item_guid);
         
     } else if ( $(target).length > 0) {
         $(target).show();
@@ -112,49 +171,60 @@ function route(target) {
     } else {
         route('#404');
     }
+
+    $(window).scrollTop(0);
+    recent_history.push(target);
+    return;
 }
 
-// Load content for 'article_guid' and display
-// params: 'article_guid': ID of the article to be displayed
-//         'article_category': category of the article for searching
-function showArticle(article_category, article_guid) {
+// simple article keyword search in content+title
+// params: 'keyword': the term for the search
+function search(keyword) {
     showSpinner();
-    // console.log('Showing article:', article_guid, article_category);
-    
-    // find article object using 'article_guid'
-    let article_obj = {}
-    $.each(feed[article_category], (idx, article) => {
-        if (article.guid.substr(19) == article_guid) {
-            article_obj = article;
-            return;
+
+    // search
+    keyword = keyword + ' ';
+    let results = [];
+    $.each(all_feeds_guids, (guid, article) => {
+        let content = (article.content).toLowerCase();
+        let title = (article.title).toLowerCase();
+        keyword = keyword.toLowerCase();
+
+        if (content.includes(keyword) || title.includes(keyword) ) {
+            results.push(article);
         }
     });
 
-    // load article content to DOM
-    $('.article-panel .article-title').text(article_obj.title)
-    $('.article-panel .article-author').text(article_obj.author);
-    $('.article-panel .article-date').text(article_obj.pubDate);
-    $('.article-panel .article-body').html(article_obj.content);
+    // build search results
+    $('#search-results').empty();
+    $('#search-results').append('<h3>Search results for ' + keyword + ':</h3>');
+    $('#search-results').append('<a class="cancel-search">&larr; Return to feed</a>');
+    buildFeed(results, '#search-results');
 
     hideSpinner();
-    $('.article-panel').show();
+    $('#search-results').show();
 }
 
-// show loading spinner
-function showSpinner() {
-    console.log('loading...');
+// validate search input and route
+function checkSearch() {
+    let query = $('#search').val();
+    if (query !== '') {
+        query = query.toLowerCase();
+        route('#search?q=' + query);
+    }
 }
 
-// hide loading spinner
-function hideSpinner() {
-    console.log('loaded!');
+// go back in time...
+function back() {
+    let secondToLast = recent_history[ recent_history.length - 2 ];
+    route(secondToLast);
 }
 
-$(document).ready( () => {
+$(document).ready(() => {
 
     showSpinner();
     loadFeeds(feed_url);    
-    route('#popular');
+    route('');
     hideSpinner();
 
     // router listener
@@ -164,5 +234,12 @@ $(document).ready( () => {
     });
 
     $('.button-collapse').sideNav();
+
+    $('#search').keypress((e) => {
+        if (e.keyCode == 13) { checkSearch(); }        
+    });
+
+    $('.cancel-search').click( () => { back() } );
+    $('#404-back').click(() => { back(); });
 
 });
