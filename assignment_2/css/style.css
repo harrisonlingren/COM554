@@ -24,7 +24,7 @@ nav {
     position: fixed;
 }
 
-.feed-panel {
+.feed-panel, .article-panel {
     margin-top: 64px;
 }
 
