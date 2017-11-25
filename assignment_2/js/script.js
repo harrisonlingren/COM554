@@ -194,7 +194,6 @@ function search(keyword) {
     // build search results
     $('#search-results').empty();
     $('#search-results').append('<h3>Search results for ' + keyword + ':</h3>');
-    $('#search-results').append('<a class="cancel-search">&larr; Return to feed</a>');
     buildFeed(results, '#search-results');
 
     hideSpinner();
