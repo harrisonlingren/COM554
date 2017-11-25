@@ -1,10 +1,11 @@
+// RSS data sources
 const feed_url = {
     popular: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Ftopstories&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
-    //world: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fworld&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
-    //business: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fbusiness&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
-    //technology: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.feedburner.com%2Ftimeblogs%2Fnerd_world&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
-    //science: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fscienceandhealth&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
-    // entertainment: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fentertainment&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10'
+    world: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fworld&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
+    business: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fbusiness&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
+    technology: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.feedburner.com%2Ftimeblogs%2Fnerd_world&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
+    science: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fscienceandhealth&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10',
+    entertainment: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fentertainment&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10'
 };
 
 // object to hold feeds
@@ -93,6 +94,7 @@ function buildFeed(category_feed, target) {
 }
 
 // simple routing function for handling URLs
+// params: 'target': URL hash string of resource
 function route(target) {
     $('main').hide();
     console.log(target);
@@ -117,17 +119,18 @@ function route(target) {
 //         'article_category': category of the article for searching
 function showArticle(article_category, article_guid) {
     showSpinner();
-    console.log('Showing article:', article_guid, article_category);
+    // console.log('Showing article:', article_guid, article_category);
+    
+    // find article object using 'article_guid'
     let article_obj = {}
-
     $.each(feed[article_category], (idx, article) => {
-        console.log(article.guid, article_guid);
         if (article.guid.substr(19) == article_guid) {
             article_obj = article;
             return;
         }
     });
 
+    // load article content to DOM
     $('.article-panel .article-title').text(article_obj.title)
     $('.article-panel .article-author').text(article_obj.author);
     $('.article-panel .article-date').text(article_obj.pubDate);
@@ -137,10 +140,12 @@ function showArticle(article_category, article_guid) {
     $('.article-panel').show();
 }
 
+// show loading spinner
 function showSpinner() {
     console.log('loading...');
 }
 
+// hide loading spinner
 function hideSpinner() {
     console.log('loaded!');
 }
