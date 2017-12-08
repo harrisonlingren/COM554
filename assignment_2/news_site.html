@@ -16,11 +16,23 @@
             <div class="nav-wrapper">
                 <a href="#" data-activates="nav-panel" class="button-collapse left"><i class="material-icons">menu</i></a>
                 <a class="brand-logo center" href="#">Lingren News</a>
-                <div class="right input-field">
-                    <label for="search" class="label-icon search-icon"><i class="material-icons">search</i></label>
-                    <input id="search" type="search" />
-                    <i class="material-icons cancel-search">clear</i>
-                </div>
+                <ul class="right">
+                    <li>
+                        <div class="input-field">
+                            <input  id="search" 
+                                    class="tooltipped"
+                                    type="search" 
+                                    placeholder="Search..."
+                                    data-position="left" 
+                                    data-delay="50"
+                                    data-tooltip="Type a keyword here and then press Enter or 
+                                                  click the icon to search the news" />
+                        </div>
+                    </li>
+                    <li>
+                        <i class="material-icons search-btn">search</i>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>
@@ -28,12 +40,24 @@
     <div class="row">
         <div class="side-nav fixed" id="nav-panel">
             <ul>
-                <li class="waves-effect nav-section-link active"><a href="#popular"><i class="material-icons">stars</i>Popular</a></li>
-                <li class="waves-effect nav-section-link"><a href="#world"><i class="material-icons">public</i>World</a></li>
-                <li class="waves-effect nav-section-link"><a href="#business"><i class="material-icons">domain</i>Business</a></li>
-                <li class="waves-effect nav-section-link"><a href="#technology"><i class="material-icons">memory</i>Technology</a></li>
-                <li class="waves-effect nav-section-link"><a href="#science"><i class="material-icons">school</i>Science</a></li>
-                <li class="waves-effect nav-section-link"><a href="#entertainment"><i class="material-icons">theaters</i>Entertainment</a></li>
+                <li class="waves-effect nav-section-link">
+                    <a href="#popular" class="active"><i class="material-icons">stars</i>Popular</a>
+                </li>
+                <li class="waves-effect nav-section-link">
+                    <a href="#world"><i class="material-icons">public</i>World</a>
+                </li>
+                <li class="waves-effect nav-section-link"><a href="#business">
+                    <i class="material-icons">domain</i>Business</a>
+                </li>
+                <li class="waves-effect nav-section-link">
+                    <a href="#technology"><i class="material-icons">memory</i>Technology</a>
+                </li>
+                <li class="waves-effect nav-section-link">
+                    <a href="#science"><i class="material-icons">school</i>Science</a>
+                </li>
+                <li class="waves-effect nav-section-link">
+                    <a href="#entertainment"><i class="material-icons">theaters</i>Entertainment</a>
+                </li>
             </ul>
         </div>
 
@@ -77,46 +101,53 @@
     <div id="spinner">
         <div class="preloader-wrapper big active">
             <div class="spinner-layer spinner-blue">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
-      
+
             <div class="spinner-layer spinner-red">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
-      
+
             <div class="spinner-layer spinner-yellow">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
-      
+
             <div class="spinner-layer spinner-green">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
-          </div>
-              
+        </div>
     </div>
 
 </body>

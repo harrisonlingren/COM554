@@ -45,7 +45,6 @@ function addToAggregateFeed(aggregate_feed) {
 // params: 'category_feed': [feed_item]
 //         'target': selector to append to
 function buildFeed(category_feed, target) {
-    // console.log(category_feed);
     // iterate over set of articles and build cards
     $.each(category_feed, (idx, item) => {
         // image element
@@ -77,10 +76,11 @@ function buildFeed(category_feed, target) {
         let item_guid = item.guid.substr( item.guid.indexOf('p=') + 2 );
         let item_content_link = '#article?id=' + item_guid;
 
-        let item_link = $('<div></div>')
+        let item_link = $('<a></a>')
             .addClass('card-action')
             .addClass('waves-effect')
-            .append( 
+            .attr('href', item_content_link)
+            .append(
                 $('<a></a>')
                     .attr('href', item_content_link)
                     .text('Read more')
@@ -148,6 +148,7 @@ function showArticle(article_guid, article_category) {
 
     // set color scheme
     $('.article-body a').addClass(article_category.substr(1));
+    $('.article-body blockquote').addClass(article_category.substr(1));
 
     hideSpinner();
     $('.article-panel').show();
@@ -177,16 +178,17 @@ function route(target, previous) {
         let item_category = (previous);
         showArticle(item_guid, item_category);
         
+    } else if (target == '' || target == '#') {
+        route('#popular');
+
     } else if ( $(target).length > 0) {
         let sections = ['#popular', '#business', '#technology', '#science', '#world', '#entertainment'];
         if ( sections.includes(target) ) {
             showSection(target);
         } else {
             route('');
-        }        
+        }
 
-    } else if (target == '') {
-        route('#popular');
     } else {
         route('#404');
     }
@@ -215,7 +217,7 @@ function search(keyword) {
 
     // build search results
     $('#search-results').empty();
-    $('#search-results').append('<h3>Search results for ' + keyword + ':</h3>');
+    $('#search-results').append('<h3>Search results for ' + (keyword.substr(0, keyword.length-1)) + ':</h3>');
     buildFeed(results, '#search-results');
 
     $('#search-results').show();
@@ -226,7 +228,7 @@ function checkSearch() {
     let query = $('#search').val();
     if (query !== '') {
         query = query.toLowerCase();
-        route('#search?q=' + query);
+        window.location.hash = ('#search?q=' + query);
     }
 }
 
@@ -243,7 +245,6 @@ $(document).ready(() => {
         new_loc = new_loc.substr(new_loc.indexOf('#'))
         let old_loc = e.originalEvent.oldURL;
         old_loc = old_loc.substr(old_loc.indexOf('#'))
-        console.log(old_loc + ' => ' + new_loc);
 
         route(new_loc, old_loc);
     });
@@ -256,11 +257,19 @@ $(document).ready(() => {
         if (e.keyCode == 13) { checkSearch(); }        
     });
 
-    $('.cancel-search').click( () => { window.history.back() } );
+    $('.search-btn').click(() => {
+        checkSearch();
+    })
+
+    // search tooltip
+    $('.tooltipped').tooltip();
+
+    // Back link on 404 page
     $('#404-back').click(() => { window.history.back(); });
 
-    $('.nav-section-link').click((e) => {
-        $('.nav-section-link').removeClass('active');
+    // sections in side-nav
+    $('.nav-section-link a').click((e) => {
+        $('.nav-section-link a').removeClass('active');
         $(e.currentTarget).addClass('active');
     });
 
