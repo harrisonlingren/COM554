@@ -160,6 +160,10 @@ function showSection(section_name) {
     // remove color scheme classes and add current section scheme
     $('nav').removeClass('popular business world technology science entertainment');
     $('nav').addClass(section_name.substr(1));
+
+    $('.nav-section-link a').removeClass('active');
+    $('.nav-section-link a[href="' + section_name + '"]').addClass('active');
+
     $(section_name).show();
 }
 
