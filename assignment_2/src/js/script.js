@@ -8,7 +8,7 @@ const feed_url = {
     entertainment: 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds2.feedburner.com%2Ftime%2Fentertainment&api_key=thiymnmlz04ef6qv64guvrusttzljtba4o4oqhya&order_by=pubDate&order_dir=desc&count=10'
 };
 
-// object to hold feeds
+// objects to hold article feeds
 const feed = {};
 const all_feeds_guids = {};
 
@@ -84,6 +84,7 @@ function buildFeed(category_feed, target) {
                 $('<a></a>')
                     .attr('href', item_content_link)
                     .text('Read more')
+                    .addClass( target.substr(1) )
         );
 
         // content container
@@ -102,13 +103,13 @@ function buildFeed(category_feed, target) {
         
         // add card element to feed
         new_item.appendTo(target);
-    });
+    }); hideSpinner();
 }
 
 // show loading spinner
 function showSpinner() {
-    $('.feed-panel').hide();
-    $('.article-panel').hide();
+    /* $('.feed-panel').hide();
+    $('.article-panel').hide(); */
     $('#spinner').show();
 }
 
@@ -119,8 +120,8 @@ function hideSpinner() {
 
 // Load content for 'article_guid' and display
 // params: 'article_guid': ID of the article to be displayed
-//         'article_category': category of the article for searching
-function showArticle(article_guid) {
+//         'article_category': Category of the article
+function showArticle(article_guid, article_category) {
     showSpinner();
     
     // find article object using 'article_guid'
@@ -131,7 +132,9 @@ function showArticle(article_guid) {
     $('.article-panel .article-author').text(article.author);
     $('.article-panel .article-body').html(article.content);
     $('.article-panel .article-media img').attr('src', article.thumbnail);
-    $('.article-panel .article-permalink').attr('href', 'https://time.com/?p='+article_guid);
+    $('.article-panel .article-permalink')
+        .attr('href', 'https://time.com/?p='+article_guid)
+        .addClass(article_category.substr(1));
 
     let d = new Date(article.pubDate);
     let pub_date = d.toLocaleString('en-US', {
@@ -143,13 +146,26 @@ function showArticle(article_guid) {
         minute: '2-digit'
     }); $('.article-panel .article-date').text(pub_date);
 
+    // set color scheme
+    $('.article-body a').addClass(article_category.substr(1));
+
     hideSpinner();
     $('.article-panel').show();
 }
 
+// Show section 'section_name' and change color scheme
+// params: 'section_name': News article section to display
+function showSection(section_name) {
+    // remove color scheme classes and add current section scheme
+    $('nav').removeClass('popular business world technology science entertainment');
+    $('nav').addClass(section_name.substr(1));
+    $(section_name).show();
+}
+
 // simple routing function for handling URLs
 // params: 'target': URL hash string of resource
-function route(target) {
+//         'previous': URL we came from
+function route(target, previous) {
     $('main').hide();
 
     if (target.includes('search')) {
@@ -158,10 +174,16 @@ function route(target) {
 
     } else if (target.includes('article?id=')) {
         let item_guid = target.substr( target.indexOf('id=') + 3 );
-        showArticle(item_guid);
+        let item_category = (previous);
+        showArticle(item_guid, item_category);
         
     } else if ( $(target).length > 0) {
-        $(target).show();
+        let sections = ['#popular', '#business', '#technology', '#science', '#world', '#entertainment'];
+        if ( sections.includes(target) ) {
+            showSection(target);
+        } else {
+            route('');
+        }        
 
     } else if (target == '') {
         route('#popular');
@@ -196,7 +218,6 @@ function search(keyword) {
     $('#search-results').append('<h3>Search results for ' + keyword + ':</h3>');
     buildFeed(results, '#search-results');
 
-    hideSpinner();
     $('#search-results').show();
 }
 
@@ -214,12 +235,17 @@ $(document).ready(() => {
     showSpinner();
     loadFeeds(feed_url);    
     route('');
-    hideSpinner();
 
     // router listener
-    $(window).on('hashchange', () => {
-        let new_loc = window.location.hash;
-        route(new_loc);
+    $(window).on('hashchange', (e) => {
+        // get old hash and new hash
+        let new_loc = e.originalEvent.newURL;
+        new_loc = new_loc.substr(new_loc.indexOf('#'))
+        let old_loc = e.originalEvent.oldURL;
+        old_loc = old_loc.substr(old_loc.indexOf('#'))
+        console.log(old_loc + ' => ' + new_loc);
+
+        route(new_loc, old_loc);
     });
 
     // init sidenav panel
